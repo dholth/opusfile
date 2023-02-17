@@ -20,21 +20,21 @@ option(OP_ENABLE_ASSERTIONS "Enable assertions in code" OFF)
 option(OP_DISABLE_EXAMPLES "Do not build example applications" OFF)
 option(OP_DISABLE_DOCS "Do not build API documentation" OFF)
 
-include(GNUInstallDirs)
+# include(GNUInstallDirs)
 
-find_package(Ogg REQUIRED)
-find_package(Opus REQUIRED)
+# find_package(Ogg REQUIRED)
+# find_package(Opus REQUIRED)
 
-include(CMakePushCheckState)
-include(CheckSymbolExists)
-cmake_push_check_state(RESET)
-include(CheckLibraryExists)
-check_library_exists(m lrintf "" OP_HAVE_LIBM)
-if(OP_HAVE_LIBM)
-  list(APPEND CMAKE_REQUIRED_LIBRARIES "m")
-endif()
-check_symbol_exists(lrintf "math.h" OP_HAVE_LRINTF)
-cmake_pop_check_state()
+# include(CMakePushCheckState)
+# include(CheckSymbolExists)
+# cmake_push_check_state(RESET)
+# include(CheckLibraryExists)
+# check_library_exists(m lrintf "" OP_HAVE_LIBM)
+# if(OP_HAVE_LIBM)
+#   list(APPEND CMAKE_REQUIRED_LIBRARIES "m")
+# endif()
+# check_symbol_exists(lrintf "math.h" OP_HAVE_LRINTF)
+# cmake_pop_check_state()
 
 add_library(opusfile
   "${CMAKE_CURRENT_SOURCE_DIR}/include/opusfile.h"
@@ -57,12 +57,10 @@ target_include_directories(opusfile
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/opus>
 )
-target_link_libraries(opusfile
-  PUBLIC
-    Ogg::ogg
-    Opus::opus
-    $<$<BOOL:${OP_HAVE_LIBM}>:m>
-)
+# target_link_libraries(opusfile
+#   PUBLIC
+#     arduino_libopus
+# )
 target_compile_options(opusfile
   PRIVATE
     $<$<C_COMPILER_ID:MSVC>:/wd4267>
